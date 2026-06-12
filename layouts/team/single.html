@@ -34,7 +34,7 @@
       {{ with $mine }}
       <div class="aside-box">
         <h3>Projects</h3>
-        {{ range uniq . }}
+        {{ range . }}
         <div class="grant"><a href="{{ .RelPermalink }}" class="gtitle">{{ .Title }}</a></div>
         {{ end }}
       </div>
