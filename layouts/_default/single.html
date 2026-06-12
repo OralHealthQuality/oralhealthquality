@@ -17,15 +17,15 @@
       <div class="pub-links" style="margin-bottom:18px;">
         {{ with .Params.doi }}<a class="btn btn-primary" style="padding:8px 16px;" href="https://doi.org/{{ . }}">View on publisher (DOI)</a>{{ end }}
         {{ with .Params.pubmed }}<a href="https://pubmed.ncbi.nlm.nih.gov/{{ . }}/">PubMed</a>{{ end }}
-        {{ with .Params.pdf }}<a href="{{ . | relURL }}">PDF</a>{{ end }}
+        {{ with .Params.pdf }}<a href="{{ . | strings.TrimPrefix "/" | absURL }}">PDF</a>{{ end }}
       </div>
-      {{ with .Params.project }}<p class="text-muted">Project: <a href="{{ (printf "/projects/%s/" .) | relURL }}">{{ . | replaceRE "-" " " | title }}</a></p>{{ end }}
+      {{ with .Params.project }}{{ with site.GetPage (printf "/projects/%s" .) }}<p class="text-muted">Project: <a href="{{ .RelPermalink }}">{{ .Title }}</a></p>{{ end }}{{ end }}
     {{ end }}
     {{ .Content }}
     {{ if eq .Type "product" }}
       <div class="callout">
         {{ with .Params.url }}<a class="btn btn-primary" href="{{ . }}">Open this tool →</a>{{ end }}
-        {{ with .Params.download }} <a href="{{ . | relURL }}">Download</a>{{ end }}
+        {{ with .Params.download }} <a href="{{ . | strings.TrimPrefix "/" | absURL }}">Download</a>{{ end }}
       </div>
     {{ end }}
   </div>

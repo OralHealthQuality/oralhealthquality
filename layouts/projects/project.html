@@ -54,7 +54,7 @@
           <h3 style="margin:.1em 0;font-size:1.1rem;">{{ .Title }}</h3>
           <div class="meta">{{ with .Params.event }}{{ . }}{{ end }}{{ with .Params.location }} · {{ . }}{{ end }}{{ with .Params.date }} · {{ (time .).Format "Jan 2006" }}{{ end }}{{ with .Params.presentation_type }} · {{ . }}{{ end }}</div>
           {{ with .Params.presenters }}<div class="text-muted" style="font-size:.9rem;">{{ delimit . ", " }}</div>{{ end }}
-          {{ with .Params.slides }}<div style="margin-top:6px;"><a href="{{ . | relURL }}">Slides (PDF)</a></div>{{ end }}
+          {{ with .Params.slides }}<div style="margin-top:6px;"><a href="{{ . | strings.TrimPrefix "/" | absURL }}">Slides (PDF)</a></div>{{ end }}
         </article>
         {{ end }}
       </div>
@@ -89,7 +89,7 @@
           {{ if $matches }}
             {{ $p := index $matches 0 }}
           <a class="team-mini" href="{{ $p.RelPermalink }}" style="text-decoration:none;color:inherit;">
-            {{ if $p.Params.image }}<img src="{{ $p.Params.image | relURL }}" alt="{{ $p.Title }}">{{ else }}<span class="team-avatar-fallback">{{ substr $p.Title 0 1 }}</span>{{ end }}
+            {{ if $p.Params.image }}<img src="{{ $p.Params.image | strings.TrimPrefix "/" | absURL }}" alt="{{ $p.Title }}">{{ else }}<span class="team-avatar-fallback">{{ substr $p.Title 0 1 }}</span>{{ end }}
             <span>
               <span class="tm-name">{{ $p.Title }}</span><br>
               <span class="tm-role">{{ $role }}{{ with $p.Params.organization }} · {{ . }}{{ end }}</span>
@@ -109,7 +109,7 @@
       <div class="aside-box">
         <h3>Topics</h3>
         <div style="display:flex;gap:6px;flex-wrap:wrap;">
-          {{ range . }}<a class="badge badge-type" href="{{ (printf "/tags/%s/" (. | urlize)) | relURL }}">{{ . }}</a>{{ end }}
+          {{ range . }}{{ $tag := . }}{{ with site.GetPage (printf "/tags/%s" (. | urlize)) }}<a class="badge badge-type" href="{{ .RelPermalink }}">{{ $tag }}</a>{{ else }}<span class="badge badge-type">{{ $tag }}</span>{{ end }}{{ end }}
         </div>
       </div>
       {{ end }}

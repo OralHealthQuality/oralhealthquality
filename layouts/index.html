@@ -4,8 +4,8 @@
     <h1>{{ .Site.Title }}</h1>
     <p class="tagline">{{ .Site.Params.tagline }}</p>
     <div class="actions">
-      <a class="btn btn-primary" href="{{ "/products/" | relURL }}">Explore our tools</a>
-      <a class="btn btn-ghost" href="{{ "/projects/" | relURL }}">See our projects</a>
+      <a class="btn btn-primary" href="{{ (site.GetPage "/products").RelPermalink }}">Explore our tools</a>
+      <a class="btn btn-ghost" href="{{ (site.GetPage "/projects").RelPermalink }}">See our projects</a>
     </div>
   </div>
 </section>
@@ -22,7 +22,7 @@
 <section class="section section-soft">
   <div class="container">
     <div class="section-head">
-      <a class="more" href="{{ "/products/" | relURL }}">All products &amp; tools →</a>
+      <a class="more" href="{{ (site.GetPage "/products").RelPermalink }}">All products &amp; tools →</a>
       <div class="eyebrow">For the community</div>
       <h2>Featured products &amp; tools</h2>
       <p class="lead">Resources you can use today — measures, datasets, dashboards, and toolkits built from our research.</p>
@@ -51,7 +51,7 @@
 <section class="section">
   <div class="container">
     <div class="section-head">
-      <a class="more" href="{{ "/projects/" | relURL }}">All projects →</a>
+      <a class="more" href="{{ (site.GetPage "/projects").RelPermalink }}">All projects →</a>
       <div class="eyebrow">Research program</div>
       <h2>Our projects</h2>
       <p class="lead">Each project pairs a funded research question with the measures, data, and tools it produces.</p>
@@ -77,7 +77,7 @@
 <section class="section section-soft">
   <div class="container">
     <div class="section-head">
-      <a class="more" href="{{ "/publications/" | relURL }}">All publications →</a>
+      <a class="more" href="{{ (site.GetPage "/publications").RelPermalink }}">All publications →</a>
       <div class="eyebrow">Latest research</div>
       <h2>Recent publications</h2>
     </div>
@@ -94,7 +94,7 @@
 <section class="section">
   <div class="container">
     <div class="section-head">
-      <a class="more" href="{{ "/news/" | relURL }}">All news →</a>
+      <a class="more" href="{{ (site.GetPage "/news").RelPermalink }}">All news →</a>
       <div class="eyebrow">Updates</div>
       <h2>Latest news</h2>
     </div>

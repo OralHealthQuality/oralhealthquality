@@ -2,7 +2,7 @@
 {{ $slug := .Params.slug }}
 <section class="page-hero">
   <div class="container" style="display:flex;gap:28px;align-items:center;flex-wrap:wrap;">
-    {{ if .Params.image }}<img src="{{ .Params.image | relURL }}" alt="{{ .Title }}" style="width:130px;height:130px;border-radius:50%;object-fit:cover;">{{ else }}<span class="team-avatar-fallback" style="width:130px;height:130px;font-size:2.5rem;">{{ substr .Title 0 1 }}</span>{{ end }}
+    {{ if .Params.image }}<img src="{{ .Params.image | strings.TrimPrefix "/" | absURL }}" alt="{{ .Title }}" style="width:130px;height:130px;border-radius:50%;object-fit:cover;">{{ else }}<span class="team-avatar-fallback" style="width:130px;height:130px;font-size:2.5rem;">{{ substr .Title 0 1 }}</span>{{ end }}
     <div>
       <h1 style="margin-bottom:.1em;">{{ .Title }}</h1>
       <div class="t-role" style="font-size:1.05rem;">{{ .Params.role }}</div>

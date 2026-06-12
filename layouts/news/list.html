@@ -9,7 +9,7 @@
   <div class="container" style="max-width:760px;">
     {{ range sort .Pages "Date" "desc" }}
     <div class="news-item">
-      <div class="date">{{ .Date.Format "January 2, 2006" }}{{ with .Params.projects }} · {{ range . }}<a href="{{ (printf "/projects/%s/" .) | relURL }}">{{ . | replaceRE "-" " " | title }}</a> {{ end }}{{ end }}</div>
+      <div class="date">{{ .Date.Format "January 2, 2006" }}{{ with .Params.projects }} · {{ range . }}{{ with site.GetPage (printf "/projects/%s" .) }}<a href="{{ .RelPermalink }}">{{ .Title }}</a> {{ end }}{{ end }}{{ end }}</div>
       <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
       <p class="text-muted mb-0">{{ .Params.summary | default (.Summary | plainify) | truncate 200 }}</p>
     </div>
