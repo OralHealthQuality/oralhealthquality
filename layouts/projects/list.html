@@ -1,0 +1,44 @@
+{{ define "main" }}
+<section class="page-hero">
+  <div class="container">
+    <div class="eyebrow">Research program</div>
+    <h1>{{ .Title }}</h1>
+    {{ with .Content }}<div class="prose">{{ . }}</div>{{ else }}<p class="text-muted" style="max-width:65ch;">Our work is organized around funded projects. Each pairs a research question with the measures, data resources, and tools it produces.</p>{{ end }}
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    {{ $projects := sort .Sections "Params.weight" }}
+    {{ $active := where $projects "Params.status" "!=" "completed" }}
+    {{ $completed := where $projects "Params.status" "completed" }}
+
+    <div class="grid grid-2">
+      {{ range $active }}
+      <a class="card project-card" href="{{ .RelPermalink }}" style="text-decoration:none;color:inherit;">
+        <div style="margin-bottom:8px;"><span class="badge badge-active">Active</span>
+          {{ with .Params.start_year }}<span class="text-muted" style="font-size:.85rem;margin-left:8px;">{{ . }}{{ with $.Params.end_year }}–{{ . }}{{ end }}</span>{{ end }}
+        </div>
+        <h3>{{ .Title }}</h3>
+        <p class="card-summary">{{ .Params.summary }}</p>
+        <div class="card-foot">View project →</div>
+      </a>
+      {{ end }}
+    </div>
+
+    {{ with $completed }}
+    <h2>Completed projects</h2>
+    <div class="grid grid-2">
+      {{ range . }}
+      <a class="card project-card completed" href="{{ .RelPermalink }}" style="text-decoration:none;color:inherit;">
+        <div style="margin-bottom:8px;"><span class="badge badge-completed">Completed</span></div>
+        <h3>{{ .Title }}</h3>
+        <p class="card-summary">{{ .Params.summary }}</p>
+        <div class="card-foot">View project →</div>
+      </a>
+      {{ end }}
+    </div>
+    {{ end }}
+  </div>
+</section>
+{{ end }}

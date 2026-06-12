@@ -1,0 +1,83 @@
+# Central grants database — verified against NIH RePORTER (api.reporter.nih.gov)
+# Project _index.md files reference these by `id`. Edit once here; project pages update automatically.
+
+- id: "R01DE035894"
+  title: "PREDICT: Advancing Periodontitis Care with Artificial Intelligence (AI)-Driven Diagnostics and Clinical Decision Support"
+  funder: "National Institute of Dental and Craniofacial Research"
+  number: "1R01DE035894-01"
+  pi: "Xiaoqian Jiang; Chun-Teh Lee; Shayan Shams; Muhammad F. Walji"
+  start: 2026
+  end: 2031
+  status: active
+
+- id: "R01HS027938"
+  title: "Diagnostic Failures in Dentistry"
+  funder: "Agency for Healthcare Research and Quality"
+  number: "5R01HS027938-05"
+  pi: "Muhammad F. Walji"
+  start: 2021
+  end: 2026
+  status: active
+
+- id: "R01DE032368"
+  title: "Informatics Approaches to Understand and Reduce Inappropriate Antibiotic Prescribing by Dentists"
+  funder: "National Institute of Dental and Craniofacial Research"
+  number: "5R01DE032368-03"
+  pi: "D. Brad Rindal; KJ Suda; Muhammad F. Walji"
+  start: 2023
+  end: 2028
+  status: active
+
+- id: "R01DE024166"
+  title: "Implementing Dental Quality Measures in Practice"
+  funder: "National Institute of Dental and Craniofacial Research"
+  number: "5R01DE024166-10"
+  pi: "Elsbeth Kalenderian; Muhammad F. Walji"
+  start: 2015
+  end: 2027
+  status: active
+
+- id: "UH3DE029158"
+  title: "Understanding Pain after Dental Procedures"
+  funder: "National Institute of Dental and Craniofacial Research"
+  number: "5UH3DE029158-06"
+  pi: "Muhammad F. Walji"
+  start: 2019
+  end: 2026
+  status: active
+
+- id: "R18HS027268"
+  title: "Open Wide Learning Lab (OWLL): Improving Patient Safety in Dentistry"
+  funder: "Agency for Healthcare Research and Quality"
+  number: "5R18HS027268-04"
+  pi: "Muhammad F. Walji"
+  start: 2019
+  end: 2024
+  status: completed
+
+- id: "R01DE022628"
+  title: "Developing A Patient Safety System For Dentistry"
+  funder: "National Institute of Dental and Craniofacial Research"
+  number: "5R01DE022628-06"
+  pi: "Muhammad F. Walji"
+  start: 2013
+  end: 2020
+  status: completed
+
+- id: "R01HS024406"
+  title: "Measuring Occurrence of and Disparities in Dental Clinic Adverse Events"
+  funder: "Agency for Healthcare Research and Quality"
+  number: "1R01HS024406-01"
+  pi: "Muhammad F. Walji"
+  start: 2015
+  end: 2019
+  status: completed
+
+- id: "G08LM010075"
+  title: "Development of an Inter-University Oral Health Research Database"
+  funder: "National Library of Medicine"
+  number: "5G08LM010075-03"
+  pi: "Muhammad F. Walji"
+  start: 2009
+  end: 2013
+  status: completed

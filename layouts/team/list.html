@@ -1,0 +1,25 @@
+{{ define "main" }}
+<section class="page-hero">
+  <div class="container">
+    <div class="eyebrow">People</div>
+    <h1>{{ .Title }}</h1>
+    {{ with .Content }}<div class="prose">{{ . }}</div>{{ else }}<p class="text-muted" style="max-width:65ch;">Our work spans multiple institutions. Below are the investigators, staff, and collaborators who lead and support our projects.</p>{{ end }}
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    {{ $members := sort .Pages "Params.weight" }}
+    <div class="grid grid-4">
+      {{ range $members }}
+      <a class="card team-card" href="{{ .RelPermalink }}" style="text-decoration:none;color:inherit;">
+        {{ if .Params.image }}<img src="{{ .Params.image | relURL }}" alt="{{ .Title }}">{{ else }}<span class="team-avatar-fallback">{{ substr .Title 0 1 }}</span>{{ end }}
+        <div class="t-name">{{ .Title }}</div>
+        <div class="t-role">{{ .Params.role }}</div>
+        <div class="t-org">{{ .Params.organization }}</div>
+      </a>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}

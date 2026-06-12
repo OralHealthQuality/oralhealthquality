@@ -1,0 +1,28 @@
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-col">
+      <span class="footer-title">{{ .Site.Title }}</span>
+      <p>{{ .Site.Params.tagline }}</p>
+    </div>
+    <div class="footer-col">
+      <span class="footer-title">Explore</span>
+      <ul>
+        <li><a href="{{ "/projects/" | relURL }}">Projects</a></li>
+        <li><a href="{{ "/products/" | relURL }}">Products &amp; Tools</a></li>
+        <li><a href="{{ "/publications/" | relURL }}">Publications</a></li>
+        <li><a href="{{ "/team/" | relURL }}">Team</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <span class="footer-title">Connect</span>
+      <ul>
+        <li><a href="mailto:{{ .Site.Params.email }}">{{ .Site.Params.email }}</a></li>
+        <li><a href="{{ .Site.Params.githubOrg }}">GitHub</a></li>
+        <li><a href="{{ "/contact/" | relURL }}">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom container">
+    <span>&copy; {{ now.Year }} {{ .Site.Title }}, {{ .Site.Params.institution }}.</span>
+  </div>
+</footer>

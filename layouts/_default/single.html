@@ -1,0 +1,33 @@
+{{ define "main" }}
+<section class="page-hero">
+  <div class="container">
+    {{ with .Params.eyebrow }}<div class="eyebrow">{{ . }}</div>{{ end }}
+    <h1>{{ .Title }}</h1>
+    {{ if eq .Type "publication" }}
+      {{ with .Params.authors }}<div class="text-muted">{{ delimit . ", " }}</div>{{ end }}
+      <div class="text-muted" style="font-style:italic;">{{ with .Params.journal }}{{ . }}{{ end }}{{ with .Params.year }} · {{ . }}{{ end }}</div>
+    {{ else if or (eq .Section "news") (eq .Type "presentation") }}
+      <div class="text-muted">{{ .Date.Format "January 2, 2006" }}</div>
+    {{ end }}
+  </div>
+</section>
+<section class="section">
+  <div class="container prose">
+    {{ if eq .Type "publication" }}
+      <div class="pub-links" style="margin-bottom:18px;">
+        {{ with .Params.doi }}<a class="btn btn-primary" style="padding:8px 16px;" href="https://doi.org/{{ . }}">View on publisher (DOI)</a>{{ end }}
+        {{ with .Params.pubmed }}<a href="https://pubmed.ncbi.nlm.nih.gov/{{ . }}/">PubMed</a>{{ end }}
+        {{ with .Params.pdf }}<a href="{{ . | relURL }}">PDF</a>{{ end }}
+      </div>
+      {{ with .Params.project }}<p class="text-muted">Project: <a href="{{ (printf "/projects/%s/" .) | relURL }}">{{ . | replaceRE "-" " " | title }}</a></p>{{ end }}
+    {{ end }}
+    {{ .Content }}
+    {{ if eq .Type "product" }}
+      <div class="callout">
+        {{ with .Params.url }}<a class="btn btn-primary" href="{{ . }}">Open this tool →</a>{{ end }}
+        {{ with .Params.download }} <a href="{{ . | relURL }}">Download</a>{{ end }}
+      </div>
+    {{ end }}
+  </div>
+</section>
+{{ end }}

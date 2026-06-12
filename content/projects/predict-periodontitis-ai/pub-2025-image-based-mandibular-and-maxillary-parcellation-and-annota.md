@@ -1,0 +1,45 @@
+---
+title: "Image-based Mandibular and Maxillary Parcellation and Annotation using Computer Tomography (IMPACT): A Deep Learning-based Clinical Tool for Orodental Dose Estimation and Osteoradionecrosis Assessment"
+date: 2025-03-20
+type: "publication"
+authors:
+  - "Humbert-Vidan L"
+  - "Castelo AH"
+  - "He R"
+  - "van Dijk LV"
+  - "Rhee DJ"
+  - "Wang C"
+  - "Wang HC"
+  - "Wahid KA"
+  - "Joshi S"
+  - "Gerafian P"
+  - "West N"
+  - "Kaffey Z"
+  - "Mirbahaeddin S"
+  - "Curiel J"
+  - "Acharya S"
+  - "Shekha A"
+  - "Oderinde P"
+  - "Ali AMS"
+  - "Hope A"
+  - "Watson E"
+  - "Wesson-Aponte R"
+  - "Frank SJ"
+  - "Barbon CEA"
+  - "Brock KK"
+  - "Chambers MS"
+  - "Walji M"
+  - "Hutcheson KA"
+  - "Lai SY"
+  - "Fuller CD"
+  - "Naser MA"
+  - "Moreno AC"
+journal: "medRxiv : the preprint server for health sciences"
+year: 2025
+doi: "10.1101/2025.03.18.25324199"
+pubmed: "40166584"
+project: "predict-periodontitis-ai"
+projects: ["predict-periodontitis-ai"]
+needs_review: true
+featured: false
+---

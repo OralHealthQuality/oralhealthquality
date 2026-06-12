@@ -1,0 +1,24 @@
+{{ define "main" }}
+<section class="page-hero">
+  <div class="container">
+    <div class="eyebrow">Research output</div>
+    <h1>{{ .Title | default "Publications" }}</h1>
+    {{ with .Content }}<div class="prose">{{ . }}</div>{{ else }}<p class="text-muted" style="max-width:65ch;">Peer-reviewed publications across all projects, newest first. Imported from PubMed and the NIH RePORTER; entries marked <span class="badge badge-review">review</span> were auto-assigned to a project and may need confirmation.</p>{{ end }}
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    {{ $pubs := where .Site.RegularPages "Type" "publication" }}
+    <p class="text-muted">{{ len $pubs }} publications.</p>
+    {{ range $pubs.GroupByDate "2006" }}
+    <div class="pub-year-group">
+      <h2>{{ .Key }}</h2>
+      {{ range sort .Pages "Date" "desc" }}
+        {{ partial "pub-item.html" . }}
+      {{ end }}
+    </div>
+    {{ end }}
+  </div>
+</section>
+{{ end }}

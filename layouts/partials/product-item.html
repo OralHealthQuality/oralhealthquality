@@ -1,0 +1,19 @@
+{{/* Renders a single product. Context: a Page with product front matter. */}}
+<article class="product-item" data-type="{{ .Params.product_type | default "other" }}">
+  <div class="product-head">
+    <h3>{{ .Title }}</h3>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;">
+      {{ with .Params.product_type }}<span class="badge badge-type">{{ . }}</span>{{ end }}
+      {{ if .Params.featured }}<span class="badge badge-featured">Featured</span>{{ end }}
+    </div>
+  </div>
+  {{ with .Params.summary }}<p class="card-summary" style="margin:.5em 0;">{{ . }}</p>{{ end }}
+  <div class="meta">
+    {{ with .Params.status }}Status: {{ . }}{{ end }}{{ with .Params.version }} · v{{ . }}{{ end }}{{ with .Params.project }} · <a href="{{ (printf "/projects/%s/" .) | relURL }}">{{ . | replaceRE "-" " " | title }}</a>{{ end }}
+  </div>
+  <div class="product-links" style="margin-top:8px;">
+    {{ with .Params.url }}<a href="{{ . }}">Open tool →</a>{{ end }}
+    {{ with .Params.download }}<a href="{{ . | relURL }}">Download</a>{{ end }}
+    {{ if .Content }}<a href="{{ .RelPermalink }}">Details</a>{{ end }}
+  </div>
+</article>

@@ -1,0 +1,54 @@
+{{ define "main" }}
+<section class="page-hero">
+  <div class="container">
+    <div class="eyebrow">For the community</div>
+    <h1>{{ .Title | default "Products & Tools" }}</h1>
+    {{ with .Content }}<div class="prose">{{ . }}</div>{{ else }}<p class="text-muted" style="max-width:65ch;">Everything our research has produced that you can use — quality measures, datasets, dashboards, toolkits, and apps, across all projects.</p>{{ end }}
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    {{ $products := where .Site.RegularPages "Type" "product" }}
+    {{ $types := slice }}
+    {{ range $products }}{{ $types = $types | append (.Params.product_type | default "other") }}{{ end }}
+    {{ $types = uniq $types }}
+
+    <div class="filter-bar" id="product-filter">
+      <button class="active" data-filter="all">All ({{ len $products }})</button>
+      {{ range $types }}<button data-filter="{{ . }}">{{ . | title }}</button>{{ end }}
+    </div>
+
+    {{/* Featured first */}}
+    {{ $featured := where $products "Params.featured" true }}
+    {{ with $featured }}
+    <h2 style="margin-top:0;">Featured</h2>
+    <div id="featured-products">
+      {{ range . }}{{ partial "product-item.html" . }}{{ end }}
+    </div>
+    {{ end }}
+
+    <h2>All products</h2>
+    <div id="all-products">
+      {{ range sort $products "Title" }}
+        {{ partial "product-item.html" . }}
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var bar = document.getElementById('product-filter');
+  if(!bar) return;
+  bar.addEventListener('click', function(e){
+    var btn = e.target.closest('button'); if(!btn) return;
+    var f = btn.getAttribute('data-filter');
+    bar.querySelectorAll('button').forEach(function(b){ b.classList.toggle('active', b===btn); });
+    document.querySelectorAll('#all-products .product-item').forEach(function(item){
+      item.style.display = (f==='all' || item.getAttribute('data-type')===f) ? '' : 'none';
+    });
+  });
+})();
+</script>
+{{ end }}

@@ -1,0 +1,51 @@
+{{ define "main" }}
+{{ $slug := .Params.slug }}
+<section class="page-hero">
+  <div class="container" style="display:flex;gap:28px;align-items:center;flex-wrap:wrap;">
+    {{ if .Params.image }}<img src="{{ .Params.image | relURL }}" alt="{{ .Title }}" style="width:130px;height:130px;border-radius:50%;object-fit:cover;">{{ else }}<span class="team-avatar-fallback" style="width:130px;height:130px;font-size:2.5rem;">{{ substr .Title 0 1 }}</span>{{ end }}
+    <div>
+      <h1 style="margin-bottom:.1em;">{{ .Title }}</h1>
+      <div class="t-role" style="font-size:1.05rem;">{{ .Params.role }}</div>
+      <div class="text-muted">{{ with .Params.department }}{{ . }}, {{ end }}{{ .Params.organization }}</div>
+      {{ with .Params.links }}
+      <div style="margin-top:10px;display:flex;gap:14px;flex-wrap:wrap;">
+        {{ range . }}<a href="{{ .url }}">{{ .label }} →</a>{{ end }}
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container" style="display:grid;grid-template-columns:1fr 300px;gap:48px;align-items:start;">
+    <div class="prose">
+      {{ .Content }}
+    </div>
+    <aside class="proj-aside">
+      {{/* Projects this member contributes to */}}
+      {{ $projectsRoot := .Site.GetPage "/projects" }}
+      {{ $mine := slice }}
+      {{ range $projectsRoot.Sections }}
+        {{ $proj := . }}
+        {{ range .Params.team }}
+          {{ if eq .member $slug }}{{ $mine = $mine | append $proj }}{{ end }}
+        {{ end }}
+      {{ end }}
+      {{ with $mine }}
+      <div class="aside-box">
+        <h3>Projects</h3>
+        {{ range uniq . }}
+        <div class="grant"><a href="{{ .RelPermalink }}" class="gtitle">{{ .Title }}</a></div>
+        {{ end }}
+      </div>
+      {{ end }}
+      {{ with .Params.email }}
+      <div class="aside-box">
+        <h3>Contact</h3>
+        <a href="mailto:{{ . }}">{{ . }}</a>
+      </div>
+      {{ end }}
+    </aside>
+  </div>
+</section>
+{{ end }}

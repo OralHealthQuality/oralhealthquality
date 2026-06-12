@@ -1,0 +1,19 @@
+{{ define "main" }}
+<section class="page-hero">
+  <div class="container">
+    <div class="eyebrow">Updates</div>
+    <h1>{{ .Title }}</h1>
+  </div>
+</section>
+<section class="section">
+  <div class="container" style="max-width:760px;">
+    {{ range sort .Pages "Date" "desc" }}
+    <div class="news-item">
+      <div class="date">{{ .Date.Format "January 2, 2006" }}{{ with .Params.projects }} · {{ range . }}<a href="{{ (printf "/projects/%s/" .) | relURL }}">{{ . | replaceRE "-" " " | title }}</a> {{ end }}{{ end }}</div>
+      <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+      <p class="text-muted mb-0">{{ .Params.summary | default (.Summary | plainify) | truncate 200 }}</p>
+    </div>
+    {{ end }}
+  </div>
+</section>
+{{ end }}

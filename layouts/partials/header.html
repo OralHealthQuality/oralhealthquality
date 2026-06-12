@@ -1,0 +1,21 @@
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="{{ "/" | relURL }}">
+      <span class="brand-mark" aria-hidden="true">OHQ</span>
+      <span class="brand-text">
+        <span class="brand-title">{{ .Site.Params.shortTitle }}</span>
+        <span class="brand-sub">{{ .Site.Params.institution }}</span>
+      </span>
+    </a>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
+    <label for="nav-toggle" class="nav-toggle-label" aria-label="Toggle menu"><span></span></label>
+    <nav class="site-nav" aria-label="Main navigation">
+      <ul>
+        {{ $current := .RelPermalink }}
+        {{ range .Site.Menus.main }}
+          <li><a href="{{ .URL | relURL }}"{{ if or (eq $current .URL) (and (ne .URL "/") (hasPrefix $current .URL)) }} class="active" aria-current="page"{{ end }}>{{ .Name }}</a></li>
+        {{ end }}
+      </ul>
+    </nav>
+  </div>
+</header>

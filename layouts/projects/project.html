@@ -1,0 +1,119 @@
+{{ define "main" }}
+{{ $slug := .Params.slug }}
+<section class="page-hero">
+  <div class="container">
+    <div class="eyebrow">Project</div>
+    <h1>{{ .Title }}</h1>
+    <div class="meta">
+      {{ if eq .Params.status "completed" }}<span class="badge badge-completed">Completed</span>{{ else }}<span class="badge badge-active">Active</span>{{ end }}
+      {{ with .Params.start_year }}<span>{{ . }}{{ with $.Params.end_year }} – {{ . }}{{ end }}</span>{{ end }}
+    </div>
+    {{ with .Params.summary }}<p style="max-width:65ch;margin-top:14px;font-size:1.1rem;">{{ . }}</p>{{ end }}
+  </div>
+</section>
+
+<section class="section">
+  <div class="container proj-layout">
+    <div class="proj-main">
+
+      {{ with .Content }}
+      <div class="proj-section prose">
+        {{ . }}
+      </div>
+      {{ end }}
+
+      {{/* ---------- Products ---------- */}}
+      {{ $products := where (where .Site.RegularPages "Type" "product") "Params.project" $slug }}
+      {{ with $products }}
+      <div class="proj-section">
+        <h2>Products &amp; tools</h2>
+        {{ range sort . "Params.featured" "desc" }}
+          {{ partial "product-item.html" . }}
+        {{ end }}
+      </div>
+      {{ end }}
+
+      {{/* ---------- Publications ---------- */}}
+      {{ $pubs := where (where .Site.RegularPages "Type" "publication") "Params.project" $slug }}
+      {{ with $pubs }}
+      <div class="proj-section">
+        <h2>Publications <span class="text-muted" style="font-size:1rem;">({{ len . }})</span></h2>
+        {{ range sort . "Date" "desc" }}
+          {{ partial "pub-item.html" . }}
+        {{ end }}
+      </div>
+      {{ end }}
+
+      {{/* ---------- Presentations ---------- */}}
+      {{ $pres := where (where .Site.RegularPages "Type" "presentation") "Params.project" $slug }}
+      {{ with $pres }}
+      <div class="proj-section">
+        <h2>Presentations</h2>
+        {{ range sort . "Date" "desc" }}
+        <article class="pres-item">
+          <h3 style="margin:.1em 0;font-size:1.1rem;">{{ .Title }}</h3>
+          <div class="meta">{{ with .Params.event }}{{ . }}{{ end }}{{ with .Params.location }} · {{ . }}{{ end }}{{ with .Params.date }} · {{ (time .).Format "Jan 2006" }}{{ end }}{{ with .Params.presentation_type }} · {{ . }}{{ end }}</div>
+          {{ with .Params.presenters }}<div class="text-muted" style="font-size:.9rem;">{{ delimit . ", " }}</div>{{ end }}
+          {{ with .Params.slides }}<div style="margin-top:6px;"><a href="{{ . | relURL }}">Slides (PDF)</a></div>{{ end }}
+        </article>
+        {{ end }}
+      </div>
+      {{ end }}
+
+    </div>
+
+    {{/* ---------- Aside: funding + team ---------- */}}
+    <aside class="proj-aside">
+      {{ with .Params.grants }}
+      <div class="aside-box">
+        <h3>Funding</h3>
+        {{ range . }}
+          {{ $gid := . }}
+          {{ range where $.Site.Data.grants "id" $gid }}
+          <div class="grant">
+            <div class="gtitle">{{ .title }}</div>
+            <div class="gmeta">{{ with .funder }}{{ . }}{{ end }}{{ with .number }} · {{ . }}{{ end }}</div>
+            <div class="gmeta">{{ with .start }}{{ . }}{{ end }}{{ with .end }}–{{ . }}{{ end }}{{ with .status }} · {{ . }}{{ end }}</div>
+          </div>
+          {{ end }}
+        {{ end }}
+      </div>
+      {{ end }}
+
+      {{ with .Params.team }}
+      <div class="aside-box">
+        <h3>Project team</h3>
+        {{ range . }}
+          {{ $role := .role }}{{ $memberSlug := .member }}
+          {{ $matches := where $.Site.RegularPages "Params.slug" $memberSlug }}
+          {{ if $matches }}
+            {{ $p := index $matches 0 }}
+          <a class="team-mini" href="{{ $p.RelPermalink }}" style="text-decoration:none;color:inherit;">
+            {{ if $p.Params.image }}<img src="{{ $p.Params.image | relURL }}" alt="{{ $p.Title }}">{{ else }}<span class="team-avatar-fallback">{{ substr $p.Title 0 1 }}</span>{{ end }}
+            <span>
+              <span class="tm-name">{{ $p.Title }}</span><br>
+              <span class="tm-role">{{ $role }}{{ with $p.Params.organization }} · {{ . }}{{ end }}</span>
+            </span>
+          </a>
+          {{ else }}
+          <div class="team-mini">
+            <span class="team-avatar-fallback">{{ substr $memberSlug 0 1 | upper }}</span>
+            <span><span class="tm-name">{{ $memberSlug | replaceRE "-" " " | title }}</span><br><span class="tm-role">{{ $role }}</span></span>
+          </div>
+          {{ end }}
+        {{ end }}
+      </div>
+      {{ end }}
+
+      {{ with .Params.tags }}
+      <div class="aside-box">
+        <h3>Topics</h3>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          {{ range . }}<a class="badge badge-type" href="{{ (printf "/tags/%s/" (. | urlize)) | relURL }}">{{ . }}</a>{{ end }}
+        </div>
+      </div>
+      {{ end }}
+    </aside>
+  </div>
+</section>
+{{ end }}

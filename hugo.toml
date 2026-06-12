@@ -1,0 +1,62 @@
+baseURL = "https://oralhealthquality.com/"
+languageCode = "en-us"
+title = "Texas Center for Oral Healthcare Quality and Safety"
+enableRobotsTXT = true
+enableGitInfo = false
+
+[outputs]
+  home = ["HTML", "RSS"]
+  section = ["HTML", "RSS"]
+
+[params]
+  shortTitle = "Oral Health Quality"
+  tagline = "Advancing oral healthcare through quality measurement, patient safety, diagnostics, and evidence-based tools."
+  description = "The Texas Center for Oral Healthcare Quality and Safety at UTHealth Houston develops measures, data resources, and tools that improve the quality and safety of dental care."
+  institution = "UTHealth Houston"
+  email = "oralhealthquality@uth.tmc.edu"
+  startYear = 2009
+  githubOrg = "https://github.com/OralHealthQuality"
+
+# Only "tags" — a taxonomy named "projects" would collide with the /projects/ section,
+# and project membership is handled via the `project:` front-matter field instead.
+[taxonomies]
+  tag = "tags"
+
+[markup]
+  [markup.goldmark.renderer]
+    unsafe = true
+  [markup.highlight]
+    noClasses = false
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 3
+
+[menu]
+  [[menu.main]]
+    name = "Projects"
+    url = "/projects/"
+    weight = 1
+  [[menu.main]]
+    name = "Products & Tools"
+    url = "/products/"
+    weight = 2
+  [[menu.main]]
+    name = "Publications"
+    url = "/publications/"
+    weight = 3
+  [[menu.main]]
+    name = "Team"
+    url = "/team/"
+    weight = 4
+  [[menu.main]]
+    name = "News"
+    url = "/news/"
+    weight = 5
+  [[menu.main]]
+    name = "About"
+    url = "/about/"
+    weight = 6
+  [[menu.main]]
+    name = "Contact"
+    url = "/contact/"
+    weight = 7

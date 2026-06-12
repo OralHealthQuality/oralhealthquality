@@ -1,0 +1,111 @@
+{{ define "main" }}
+<section class="hero">
+  <div class="container">
+    <h1>{{ .Site.Title }}</h1>
+    <p class="tagline">{{ .Site.Params.tagline }}</p>
+    <div class="actions">
+      <a class="btn btn-primary" href="{{ "/products/" | relURL }}">Explore our tools</a>
+      <a class="btn btn-ghost" href="{{ "/projects/" | relURL }}">See our projects</a>
+    </div>
+  </div>
+</section>
+
+{{ with .Content }}
+<section class="section">
+  <div class="container prose">{{ . }}</div>
+</section>
+{{ end }}
+
+{{/* ---------- Featured products ---------- */}}
+{{ $featured := where (where .Site.RegularPages "Type" "product") "Params.featured" true }}
+{{ with $featured }}
+<section class="section section-soft">
+  <div class="container">
+    <div class="section-head">
+      <a class="more" href="{{ "/products/" | relURL }}">All products &amp; tools →</a>
+      <div class="eyebrow">For the community</div>
+      <h2>Featured products &amp; tools</h2>
+      <p class="lead">Resources you can use today — measures, datasets, dashboards, and toolkits built from our research.</p>
+    </div>
+    <div class="grid grid-3">
+      {{ range first 6 . }}
+      <div class="card">
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;">
+          {{ with .Params.product_type }}<span class="badge badge-type">{{ . }}</span>{{ end }}
+        </div>
+        <h3>{{ .Title }}</h3>
+        <p class="card-summary">{{ .Params.summary | default (.Summary | plainify) | truncate 140 }}</p>
+        <div class="card-foot">
+          {{ with .Params.url }}<a href="{{ . }}">Open tool →</a>{{ else }}<a href="{{ .RelPermalink }}">Learn more →</a>{{ end }}
+        </div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}
+
+{{/* ---------- Project cards ---------- */}}
+{{ $projectsRoot := .Site.GetPage "/projects" }}
+{{ $projects := $projectsRoot.Sections }}
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <a class="more" href="{{ "/projects/" | relURL }}">All projects →</a>
+      <div class="eyebrow">Research program</div>
+      <h2>Our projects</h2>
+      <p class="lead">Each project pairs a funded research question with the measures, data, and tools it produces.</p>
+    </div>
+    <div class="grid grid-3">
+      {{ range (sort $projects "Params.weight") }}
+      <a class="card project-card {{ if eq .Params.status "completed" }}completed{{ end }}" href="{{ .RelPermalink }}" style="text-decoration:none;color:inherit;">
+        <div style="margin-bottom:8px;">
+          {{ if eq .Params.status "completed" }}<span class="badge badge-completed">Completed</span>{{ else }}<span class="badge badge-active">Active</span>{{ end }}
+        </div>
+        <h3>{{ .Title }}</h3>
+        <p class="card-summary">{{ .Params.summary | truncate 130 }}</p>
+        <div class="card-foot">View project →</div>
+      </a>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+{{/* ---------- Latest publications ---------- */}}
+{{ $pubs := where .Site.RegularPages "Type" "publication" }}
+{{ with $pubs }}
+<section class="section section-soft">
+  <div class="container">
+    <div class="section-head">
+      <a class="more" href="{{ "/publications/" | relURL }}">All publications →</a>
+      <div class="eyebrow">Latest research</div>
+      <h2>Recent publications</h2>
+    </div>
+    {{ range first 6 (sort . "Date" "desc") }}
+      {{ partial "pub-item.html" . }}
+    {{ end }}
+  </div>
+</section>
+{{ end }}
+
+{{/* ---------- Latest news ---------- */}}
+{{ $news := where .Site.RegularPages "Section" "news" }}
+{{ with $news }}
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <a class="more" href="{{ "/news/" | relURL }}">All news →</a>
+      <div class="eyebrow">Updates</div>
+      <h2>Latest news</h2>
+    </div>
+    {{ range first 4 (sort . "Date" "desc") }}
+      <div class="news-item">
+        <div class="date">{{ .Date.Format "January 2, 2006" }}</div>
+        <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+        <p class="text-muted mb-0">{{ .Params.summary | default (.Summary | plainify) | truncate 160 }}</p>
+      </div>
+    {{ end }}
+  </div>
+</section>
+{{ end }}
+{{ end }}

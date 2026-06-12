@@ -1,0 +1,16 @@
+{{/* Renders a single publication. Context: a Page with publication front matter. */}}
+<article class="pub-item">
+  <div class="pub-title">{{ .Title }}</div>
+  {{ with .Params.authors }}<div class="pub-authors">{{ delimit . ", " }}</div>{{ end }}
+  <div class="pub-venue">
+    {{ with .Params.journal }}{{ . }}{{ end }}{{ with .Params.year }} · {{ . }}{{ end }}{{ with .Params.volume }} · Vol {{ . }}{{ with $.Params.issue }}({{ . }}){{ end }}{{ end }}{{ with .Params.pages }} · pp {{ . }}{{ end }}
+  </div>
+  {{ with .Params.summary }}<p class="text-muted" style="margin:.4em 0 .2em;">{{ . }}</p>{{ end }}
+  <div class="pub-links">
+    {{ with .Params.doi }}<a href="https://doi.org/{{ . }}">DOI</a>{{ end }}
+    {{ with .Params.pubmed }}<a href="https://pubmed.ncbi.nlm.nih.gov/{{ . }}/">PubMed</a>{{ end }}
+    {{ with .Params.pdf }}<a href="{{ . | relURL }}">PDF</a>{{ end }}
+    {{ if and (not .Params.project) (eq .Section "publications") }}{{ else }}{{ with .Params.project }}<a href="{{ (printf "/projects/%s/" .) | relURL }}">{{ . | replaceRE "-" " " | title }}</a>{{ end }}{{ end }}
+    {{ if .Params.needs_review }}<span class="badge badge-review" title="Project assignment auto-mapped — please verify">review</span>{{ end }}
+  </div>
+</article>
